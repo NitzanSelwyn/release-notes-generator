@@ -1,5 +1,6 @@
 import { simpleGit, SimpleGit } from 'simple-git';
 import * as dotenv from 'dotenv';
+import * as fs from 'fs';
 dotenv.config();
 
 const LLM_API_URL = process.env.LLM_API_URL || '';
@@ -121,8 +122,7 @@ async function main(sourceBranch: string, targetBranch: string, repoPath: string
         const { features, bugFixes, otherChanges } = await analyzeCommits(repoPath, `${targetBranch}..${sourceBranch}`);
         const releaseNotes = await generateReleaseNotes(features, bugFixes, otherChanges);
         console.log(releaseNotes);
-        // Optionally save to a file
-        //  fs.writeFileSync('release_notes.md', releaseNotes);  //Requires fs module
+        fs.writeFileSync('release_notes.md', releaseNotes); // Save to file
     } catch (error) {
         console.error("An error occurred:", error);
     }
