@@ -1,0 +1,14 @@
+{
+  "devDependencies": {
+    "@types/node": "^24.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
+  },
+  "dependencies": {
+    "@types/dotenv": "^8.2.3",
+    "@types/node-fetch": "^2.6.12",
+    "dotenv": "^17.2.0",
+    "node-fetch": "^3.3.2",
+    "simple-git": "^3.28.0"
+  }
+}
