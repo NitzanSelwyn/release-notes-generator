@@ -1,0 +1,36 @@
+name: 'Release Notes Generator'
+description: 'Generate release notes between two branches using OpenAI LLM.'
+author: 'Your Name'
+inputs:
+  source_branch:
+    description: 'Source branch (e.g., dev)'
+    required: true
+  target_branch:
+    description: 'Target branch (e.g., main)'
+    required: true
+  repo_path:
+    description: 'Path to the git repository (default: .)'
+    required: false
+    default: '.'
+  OPENAI_API_KEY:
+    description: 'OpenAI API Key'
+    required: true
+  LLM_API_URL:
+    description: 'LLM API URL'
+    required: true
+runs:
+  using: 'composite'
+  steps:
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+    - name: Install dependencies
+      run: npm install
+      shell: bash
+    - name: Generate release notes
+      run: |
+        export OPENAI_API_KEY="${{ inputs.OPENAI_API_KEY }}"
+        export LLM_API_URL="${{ inputs.LLM_API_URL }}"
+        npx ts-node src/main.ts "${{ inputs.source_branch }}" "${{ inputs.target_branch }}" "${{ inputs.repo_path }}"
+      shell: bash 
